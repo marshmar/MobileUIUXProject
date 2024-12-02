@@ -8,8 +8,6 @@ public class Panel_Main : MonoBehaviour
     private Timer timerScr;
 
     [SerializeField]
-    private GameObject panelBottom_Bar;
-    [SerializeField]
     private GameObject panelInfinityStudying;
     [SerializeField]
     private GameObject panelInfinityBeforeStudying;
@@ -21,6 +19,7 @@ public class Panel_Main : MonoBehaviour
     private GameObject startButton;
     [SerializeField]
     private GameObject pauseButton;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +36,6 @@ public class Panel_Main : MonoBehaviour
     {
         if(timerScr.AccumulatedTime >= 0)
         {
-            panelBottom_Bar.SetActive(true);
             panelInfinityStudying.SetActive(true);
             panelInfinityBeforeStudying.SetActive(false);
             buttonStudyMode.SetActive(false);
@@ -47,13 +45,11 @@ public class Panel_Main : MonoBehaviour
         }
         else
         {
-            panelBottom_Bar.SetActive(false);
         }
     }
 
     public void SetPanelBeforeStudying()
     {
-        panelBottom_Bar.SetActive(false);
         panelInfinityStudying.SetActive(false);
         panelInfinityBeforeStudying.SetActive(true);
         buttonStudyMode.SetActive(true);
@@ -79,7 +75,5 @@ public class Panel_Main : MonoBehaviour
         {
             imageStudying.SetActive(true);
         }
-
     }
-
 }
