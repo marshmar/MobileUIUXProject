@@ -13,6 +13,8 @@ public class PanelPSData : MonoBehaviour
     [SerializeField]
     private GameObject longRestImage;
 
+    public RectTransform panelPsView;
+
     private List<GameObject> instantiatedFocusObjects = new List<GameObject>();
     private List<GameObject> instantiatedRestObjects = new List<GameObject>();
     private List<GameObject> instantiatedLongRestObjects = new List<GameObject>();

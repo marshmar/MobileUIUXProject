@@ -44,9 +44,9 @@ public class PomodoroData : MonoBehaviour
         panel_Main_Scr = GetComponentInParent<Panel_Main>();
         pomodoroListScr = GetComponentInParent<PomodoroList>();
         navigationViewScr = GetComponentInParent<NavigationView>();
-        GameObject panelPsDataObjcet = GameObject.Find("Panel_PS_Data");
-        nextViewRect = panelPsDataObjcet.GetComponent<RectTransform>();
-        panelPSDataScr = panelPsDataObjcet.GetComponent<PanelPSData>();
+
+        panelPSDataScr = GetComponentInParent<PanelPSData>();
+        nextViewRect = panelPSDataScr.panelPsView.GetComponent<RectTransform>();
     }
 
     // Start is called before the first frame update
