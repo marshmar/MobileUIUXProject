@@ -4,15 +4,18 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+public enum DROPTYPE { FOCUS, REST, LONGREST}
 public class DroppableUI : MonoBehaviour, IPointerEnterHandler, IDropHandler, IPointerExitHandler
 {
+    public DROPTYPE dropType;
     private Image image;
     private RectTransform rect;
-
+    private PanelPSData panelPSDataScr;
     private void Awake()
     {
         image = GetComponent<Image>();
         rect = GetComponent<RectTransform>();
+        panelPSDataScr = GetComponentInParent<PanelPSData>();
     }
     // Start is called before the first frame update
     void Start()
@@ -47,6 +50,23 @@ public class DroppableUI : MonoBehaviour, IPointerEnterHandler, IDropHandler, IP
                 dui.TempObj.transform.SetParent(transform);
                 dui.TempObj.transform.position = rect.position;
                 dui.TempObj.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                if(dui.TempObj.TryGetComponent<Data>(out Data data))
+                {
+                    data.SetPomodoroData();
+                }
+                switch (dropType)
+                {
+                    case DROPTYPE.FOCUS:
+                        panelPSDataScr.pomodoroData.AddFocusTimeList(dui.TempObj);
+                        break;
+                    case DROPTYPE.REST:
+                        panelPSDataScr.pomodoroData.AddRestTimeList(dui.TempObj);
+                        break;
+                    case DROPTYPE.LONGREST:
+                        panelPSDataScr.pomodoroData.AddLongRestTimeList(dui.TempObj);
+                        break;
+                }
+
             }
         }
     }

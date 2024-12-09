@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PomodoroData : MonoBehaviour
 {
@@ -16,7 +17,18 @@ public class PomodoroData : MonoBehaviour
     private float longRestTime;
 
     private Panel_Main panel_Main_Scr;
+    private PanelPSData panelPSDataScr;
     private PomodoroList pomodoroListScr;
+    private NavigationView navigationViewScr;
+    [SerializeField]
+    private RectTransform nextViewRect;
+
+    
+    private List<GameObject> focusTimeList;
+    private List<GameObject> restTimeList;
+    private List<GameObject> longRestTimeList;
+
+
     private void Awake()
     {
         pomodoroName = "Àç¹Õ´Â °øºÎ";
@@ -24,8 +36,17 @@ public class PomodoroData : MonoBehaviour
         pomodoroTime = 1500.0f;
         restTime = 300.0f;
         longRestTime = 900.0f;
+
+        focusTimeList = new List<GameObject>();
+        restTimeList = new List<GameObject>();
+        longRestTimeList = new List<GameObject>();
+
         panel_Main_Scr = GetComponentInParent<Panel_Main>();
         pomodoroListScr = GetComponentInParent<PomodoroList>();
+        navigationViewScr = GetComponentInParent<NavigationView>();
+        GameObject panelPsDataObjcet = GameObject.Find("Panel_PS_Data");
+        nextViewRect = panelPsDataObjcet.GetComponent<RectTransform>();
+        panelPSDataScr = panelPsDataObjcet.GetComponent<PanelPSData>();
     }
 
     // Start is called before the first frame update
@@ -42,7 +63,11 @@ public class PomodoroData : MonoBehaviour
 
     public void GoToDataSetting()
     {
+        navigationViewScr.Push(nextViewRect);
+        Debug.Log(panel_Main_Scr == null);
         panel_Main_Scr.SetPomodoroDataSetting(this);
+        panelPSDataScr.DeleteData();
+        panelPSDataScr.SetData();
     }
 
     public void RemovePomodoroData()
@@ -69,4 +94,34 @@ public class PomodoroData : MonoBehaviour
     {
         restTime -= data.time;
     }
+
+    public List<GameObject> GetFocusTimeList()
+    {
+        return focusTimeList;
+    }
+
+    public List<GameObject> GetRestTimeList()
+    {
+        return restTimeList;
+    }
+
+    public List<GameObject> GetLongRestTimeList()
+    {
+        return longRestTimeList;
+    }
+
+    public void AddFocusTimeList(GameObject gameObject)
+    {
+        focusTimeList.Add(Instantiate(gameObject));
+    }
+    public void AddRestTimeList(GameObject gameObject)
+    {
+        restTimeList.Add(Instantiate(gameObject));
+    }
+
+    public void AddLongRestTimeList(GameObject gameObject)
+    {
+        longRestTimeList.Add(Instantiate(gameObject));
+    }
+
 }

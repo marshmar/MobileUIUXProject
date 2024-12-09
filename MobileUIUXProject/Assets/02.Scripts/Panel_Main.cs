@@ -8,6 +8,7 @@ public class Panel_Main : MonoBehaviour
 {
     private Timer timerScr;
     private Pomodoro pomodoroScr;
+    private PanelPSData panelPSDataScr;
 
     [SerializeField]
     private GameObject imageStudying;
@@ -63,12 +64,16 @@ public class Panel_Main : MonoBehaviour
     [SerializeField]
     private AnimatedImage pomodoroAnimatedImage;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         timerScr = GetComponentInParent<Timer>();
         pomodoroScr = GetComponentInParent<Pomodoro>();
+        //panelPsDataScr = GetComponentInChildren<PanelPSData>();
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+
         SetPanelBeforeStudying();
     }
 
@@ -112,9 +117,7 @@ public class Panel_Main : MonoBehaviour
     // 뽀모도로 타이머 데이터 세팅화면으로 설정
     public void SetPomodoroDataSetting(PomodoroData pomodoroData)
     {
-        panelPomodoroSetting.SetActive(true);
-        panelPomodoroList.SetActive(false);
-        panelPomodoroDataSetting.SetActive(true);
+        
         panelPsDataScr.pomodoroData = pomodoroData;
     }
     // 뽀모도로 공부 전 패널로 설정
