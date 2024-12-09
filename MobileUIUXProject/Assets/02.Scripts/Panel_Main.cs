@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using LottiePlugin.UI;
 
 public class Panel_Main : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class Panel_Main : MonoBehaviour
     [SerializeField]
     private GameObject panelMusic;
 
+
     [Header("Infinity")]
     [SerializeField]
     private GameObject panelInfinityStudying;
@@ -34,6 +36,8 @@ public class Panel_Main : MonoBehaviour
     private GameObject startButton;
     [SerializeField]
     private GameObject pauseButton;
+    [SerializeField]
+    private AnimatedImage infinityAnimatedImage;
 
     [Header("Pomodoro")]
     [SerializeField]
@@ -43,6 +47,12 @@ public class Panel_Main : MonoBehaviour
     [SerializeField]
     private GameObject panelPomodoroSetting;
     [SerializeField]
+    private GameObject panelPomodoroList;
+    [SerializeField]
+    private GameObject panelPomodoroDataSetting;
+    [SerializeField]
+    private PanelPSData panelPsDataScr;
+    [SerializeField]
     private GameObject panelPomodoroRest;
     [SerializeField]
     private GameObject textPomodoroTimer;
@@ -50,7 +60,8 @@ public class Panel_Main : MonoBehaviour
     private GameObject pomodoroStartButton;
     [SerializeField]
     private GameObject pomodoroPauseButton;
-
+    [SerializeField]
+    private AnimatedImage pomodoroAnimatedImage;
 
 
     // Start is called before the first frame update
@@ -67,6 +78,8 @@ public class Panel_Main : MonoBehaviour
         
     }
 
+
+    // 뽀모도로 휴식화면으로 설정
     public void SetPomodoroRest()
     {
         panelPomodoroStudying.SetActive(false);
@@ -74,6 +87,8 @@ public class Panel_Main : MonoBehaviour
         panelPomodoroRest.SetActive(true);
 
     }
+
+    // 뽀모도로 타이머 리스트화면으로 설정
     public void SetPomodoroTimerSetting()
     {
         if (timerScr.IsOnTimer) return;
@@ -90,8 +105,19 @@ public class Panel_Main : MonoBehaviour
         panelMusic.SetActive(false);
 
         panelPomodoroSetting.SetActive(true);
+        panelPomodoroList.SetActive(true);
+        panelPomodoroDataSetting.SetActive(false);
     }
 
+    // 뽀모도로 타이머 데이터 세팅화면으로 설정
+    public void SetPomodoroDataSetting(PomodoroData pomodoroData)
+    {
+        panelPomodoroSetting.SetActive(true);
+        panelPomodoroList.SetActive(false);
+        panelPomodoroDataSetting.SetActive(true);
+        panelPsDataScr.pomodoroData = pomodoroData;
+    }
+    // 뽀모도로 공부 전 패널로 설정
     public void SetPomodoroBeforeStudying()
     {
         timerScr.IsOnPomodoro = true;
@@ -114,6 +140,7 @@ public class Panel_Main : MonoBehaviour
         buttonStudyMode.SetActive(true);
     }
 
+    // 뽀모도로 공부모드 패널로 설정
     public void SetPomodoroStudying()
     {
         panelPomodoroBeforeStudying.SetActive(false);
@@ -122,8 +149,10 @@ public class Panel_Main : MonoBehaviour
         buttonStudyMode.SetActive(false);
         pomodoroStartButton.SetActive(false);
         pomodoroPauseButton.SetActive(true);
+        pomodoroAnimatedImage.Play();
     }
 
+    // 무한 공부모드 패널로 설정
     public void SetInfinityPanel()
     {
         if(timerScr.AccumulatedTime >= 0)
@@ -135,6 +164,7 @@ public class Panel_Main : MonoBehaviour
             imageStudying.SetActive(true);
             startButton.SetActive(false);
             pauseButton.SetActive(true);
+            infinityAnimatedImage.Play();
         }
         else
         {
@@ -142,6 +172,7 @@ public class Panel_Main : MonoBehaviour
         }
     }
 
+    // 무한 공부모드 준비 패널로 변경
     public void SetPanelBeforeStudying()
     {
         // 패널 세팅
