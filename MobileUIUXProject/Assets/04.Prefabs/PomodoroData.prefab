@@ -145,8 +145,8 @@ GameObject:
   - component: {fileID: 8693196383955523845}
   - component: {fileID: 8058812287010026161}
   - component: {fileID: 375511247458373103}
-  - component: {fileID: 3125307920457445790}
   - component: {fileID: 701653947166078625}
+  - component: {fileID: 2064415484132154267}
   m_Layer: 5
   m_Name: PomodoroData
   m_TagString: Untagged
@@ -213,7 +213,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.4
---- !u!114 &3125307920457445790
+--- !u!114 &701653947166078625
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -222,7 +222,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 8380333659531073278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 4115fd417901c7544a806c2ce82d128b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextViewRect: {fileID: 0}
+--- !u!114 &2064415484132154267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8380333659531073278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85e233519aaa41148b72785acd57e474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -269,18 +282,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &701653947166078625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8380333659531073278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4115fd417901c7544a806c2ce82d128b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  scale: 1.3
+  time: 0.08
 --- !u!1 &8434354246090858241
 GameObject:
   m_ObjectHideFlags: 0

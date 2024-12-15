@@ -24,10 +24,10 @@ public class DotweenTest : MonoBehaviour
 
     public IEnumerator Scale()
     {
-        transform.DOScale(1.25f, 0.05f);
+        transform.DOScale(4.5f, 0.05f);
 
         yield return new WaitForSeconds(0.05f);
 
-        transform.DOScale(1.0f, 0.05f);
+        transform.DOScale(4.0f, 0.05f);
     }
 }
