@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.UI;
+#endif
 using DG.Tweening;
 
 public class HoldingComponent : Button
@@ -12,12 +14,12 @@ public class HoldingComponent : Button
     private PomodoroList pomodoroList;
     private RectTransform rectTransform;
     [SerializeField]
-    private GameObject holdingImage;
+    public GameObject holdingImage;
     private float touchStartTime;
     [SerializeField]
-    private float scale;
+    public float scale;
     [SerializeField]
-    private float time;
+    public float time;
     private bool isPressing;
     private bool createdImage;
     private WaitForSeconds watingTime;
@@ -48,6 +50,7 @@ public class HoldingComponent : Button
         }
     }
 
+#if UNITY_EDITOR
     [CustomEditor(typeof(HoldingComponent))]
     public class HoldingButtonEditor : SelectableEditor
     {
@@ -82,7 +85,7 @@ public class HoldingComponent : Button
             serializedObject.ApplyModifiedProperties();
         }
     }
-
+#endif
     public override void OnPointerClick(PointerEventData eventData)
     {
         
