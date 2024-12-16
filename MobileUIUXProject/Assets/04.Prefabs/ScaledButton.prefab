@@ -120,3 +120,5 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+  scale: 0.8
+  time: 0.08

@@ -117,7 +117,6 @@ public class Panel_Main : MonoBehaviour
     // 뽀모도로 타이머 데이터 세팅화면으로 설정
     public void SetPomodoroDataSetting(PomodoroData pomodoroData)
     {
-        
         panelPsDataScr.pomodoroData = pomodoroData;
     }
     // 뽀모도로 공부 전 패널로 설정

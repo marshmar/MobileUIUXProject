@@ -51,7 +51,7 @@ public class Pomodoro : MonoBehaviour
     public void SetImage()
     {
         int listCount = pomodoroList.Count;
-        if(pomodoroCount < listCount)
+/*        if(pomodoroCount < listCount)
         {
             for(int i = 0; i < listCount - pomodoroCount; i++)
             {
@@ -65,7 +65,7 @@ public class Pomodoro : MonoBehaviour
             {
                 pomodoroList.Add(Instantiate(pomodoroImagePrefab, pomodoroImages.transform));
             }
-        }
+        }*/
     }
 
     public void EndPomodoro()

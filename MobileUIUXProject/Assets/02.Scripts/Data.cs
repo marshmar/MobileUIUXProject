@@ -1,25 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum TIMETYPE { POMODORO, REST}
 
 public class Data : MonoBehaviour
 {
+    private Sprite sprite;
     public float time;
     public TIMETYPE timeType;
     private PanelPSData panelPSDataScr;
-    
+
+    public Sprite Sprite { get => sprite; set => sprite = value; }
+
     // Start is called before the first frame update
     void Awake()
     {
         panelPSDataScr = GetComponentInParent<PanelPSData>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        sprite = GetComponent<Sprite>();
     }
 
     public void SetPomodoroData()
@@ -33,7 +32,7 @@ public class Data : MonoBehaviour
     
     public void DestroyThisObject()
     {
-        panelPSDataScr.pomodoroData.DecreasePomodoroTime(this);
+        //panelPSDataScr.pomodoroData.DecreasePomodoroTime(this);
         Destroy(this.gameObject);
     }
 }

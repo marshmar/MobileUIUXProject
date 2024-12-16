@@ -1,76 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PanelPSData : MonoBehaviour
 {
     public PomodoroData pomodoroData;
-
-    [SerializeField]
-    private GameObject focusImage;
-    [SerializeField]
-    private GameObject restImage;
-    [SerializeField]
-    private GameObject longRestImage;
-
     public RectTransform panelPsView;
+    [SerializeField]
+    private GameObject pomodoroSequenceObject;
+    public GameObject iconPrefab;
+    [SerializeField]
+    private TMP_InputField nameInput;
 
-    private List<GameObject> instantiatedFocusObjects = new List<GameObject>();
-    private List<GameObject> instantiatedRestObjects = new List<GameObject>();
-    private List<GameObject> instantiatedLongRestObjects = new List<GameObject>();
-
-    // Start is called before the first frame update
-    void Start()
+    public void SavePomodoroData()
     {
-        
+        int index = pomodoroSequenceObject.transform.childCount;
+        for(int i = 0; i < index; i++)
+        { 
+            pomodoroData.SavePomodoroData(pomodoroSequenceObject.transform.GetChild(i).gameObject,
+                pomodoroSequenceObject.transform.GetChild(i).GetComponent<Data>());
+        }
+        pomodoroData.Text.text = nameInput.text;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void LoadPomodoroData()
     {
-        
+        for(int i = 0; i < pomodoroData.PomodoroSequence.Count; i++)
+        {
+            GameObject tempObj = Instantiate(iconPrefab, pomodoroSequenceObject.transform);
+            if(tempObj.TryGetComponent<Data>(out Data data))
+            {
+                tempObj.GetComponent<Image>().sprite = pomodoroData.PomodoroSequenceDatas[i].Sprite;
+            }
+        }
     }
 
-    public void DeleteData()
+    public void ClearData()
     {
-        foreach (Transform child in focusImage.transform)
-        {
-            Destroy(child.gameObject);
-        }
-        foreach (Transform child in restImage.transform)
-        {
-            Destroy(child.gameObject);
-        }
-        foreach (Transform child in longRestImage.transform)
-        {
-            Destroy(child.gameObject);
-        }
+        pomodoroData.ClearPomodoroData();
     }
-    public void SetData()
+
+    public void SetTitleText()
     {
-
-        instantiatedFocusObjects.Clear();
-        List<GameObject> tempList = pomodoroData.GetFocusTimeList();
-        for(int i = 0; i < tempList.Count; i++)
+        nameInput.text = pomodoroData.Text.text;
+    }
+    
+    public void DeleteChildren()
+    {
+        for(int i = pomodoroSequenceObject.transform.childCount - 1; i >= 0; i--)
         {
-            GameObject instance = Instantiate(tempList[i], focusImage.transform);
-            instantiatedFocusObjects.Add(instance);
-        }
-
-        instantiatedRestObjects.Clear();
-        tempList = pomodoroData.GetRestTimeList();
-        for (int i = 0; i < tempList.Count; i++)
-        {
-            GameObject instance = Instantiate(tempList[i], restImage.transform);
-            instantiatedRestObjects.Add(instance);
-        }
-
-        instantiatedLongRestObjects.Clear();
-        tempList = pomodoroData.GetLongRestTimeList();
-        for (int i = 0; i < tempList.Count; i++)
-        {
-            GameObject instance = Instantiate(tempList[i], longRestImage.transform);
-            instantiatedLongRestObjects.Add(instance);
+            Destroy(pomodoroSequenceObject.transform.GetChild(i).gameObject);
         }
     }
 }

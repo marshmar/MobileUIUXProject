@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PomodoroData : MonoBehaviour
 {
@@ -23,11 +24,13 @@ public class PomodoroData : MonoBehaviour
     [SerializeField]
     private RectTransform nextViewRect;
 
-    
-    private List<GameObject> focusTimeList;
-    private List<GameObject> restTimeList;
-    private List<GameObject> longRestTimeList;
+    private List<GameObject> pomodoroSequence;
+    private List<Data> pomodoroSequenceDatas;
+    private TMP_Text text;
 
+    public List<GameObject> PomodoroSequence { get => pomodoroSequence; set => pomodoroSequence = value; }
+    public List<Data> PomodoroSequenceDatas { get => pomodoroSequenceDatas; set => pomodoroSequenceDatas = value; }
+    public TMP_Text Text { get => text; set => text = value; }
 
     private void Awake()
     {
@@ -37,9 +40,8 @@ public class PomodoroData : MonoBehaviour
         restTime = 300.0f;
         longRestTime = 900.0f;
 
-        focusTimeList = new List<GameObject>();
-        restTimeList = new List<GameObject>();
-        longRestTimeList = new List<GameObject>();
+        pomodoroSequence = new List<GameObject>();
+        pomodoroSequenceDatas = new List<Data>();
 
         panel_Main_Scr = GetComponentInParent<Panel_Main>();
         pomodoroListScr = GetComponentInParent<PomodoroList>();
@@ -47,32 +49,24 @@ public class PomodoroData : MonoBehaviour
 
         panelPSDataScr = GetComponentInParent<PanelPSData>();
         nextViewRect = panelPSDataScr.panelPsView.GetComponent<RectTransform>();
+        text = GetComponentInChildren<TMP_Text>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void GoToDataSetting()
     {
         navigationViewScr.Push(nextViewRect);
         Debug.Log(panel_Main_Scr == null);
         panel_Main_Scr.SetPomodoroDataSetting(this);
-        panelPSDataScr.DeleteData();
-        panelPSDataScr.SetData();
+        panelPSDataScr.DeleteChildren();
+        panelPSDataScr.SetTitleText();
+        panelPSDataScr.LoadPomodoroData();
     }
 
     public void RemovePomodoroData()
     {
-        pomodoroListScr.RemoveData(this.gameObject);
+        pomodoroListScr.RemoveData(this.gameObject, this);
+        Destroy(this.gameObject);
     }
 
     public void AddPomodoroTime(Data data)
@@ -94,34 +88,16 @@ public class PomodoroData : MonoBehaviour
     {
         restTime -= data.time;
     }
-
-    public List<GameObject> GetFocusTimeList()
+    
+    public void SavePomodoroData(GameObject gameObject, Data data)
     {
-        return focusTimeList;
+        pomodoroSequence.Add(gameObject);
+        pomodoroSequenceDatas.Add(data);
     }
 
-    public List<GameObject> GetRestTimeList()
+    public void ClearPomodoroData()
     {
-        return restTimeList;
+        pomodoroSequence.Clear();
+        pomodoroSequenceDatas.Clear();
     }
-
-    public List<GameObject> GetLongRestTimeList()
-    {
-        return longRestTimeList;
-    }
-
-    public void AddFocusTimeList(GameObject gameObject)
-    {
-        focusTimeList.Add(Instantiate(gameObject));
-    }
-    public void AddRestTimeList(GameObject gameObject)
-    {
-        restTimeList.Add(Instantiate(gameObject));
-    }
-
-    public void AddLongRestTimeList(GameObject gameObject)
-    {
-        longRestTimeList.Add(Instantiate(gameObject));
-    }
-
 }
